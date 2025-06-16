@@ -2,16 +2,12 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      nodejs: 18
     commands:
       - npm install
   build:
     commands:
-      - export VITE_API_URL=https://2b6f42dsb5.execute-api.us-east-1.amazonaws.com/dev
-      - export VITE_COGNITO_REDIRECT_URL=https://us-east-1vaptapt6x.auth.us-east-1.amazoncognito.com/login/continue?client_id=6lbn470s7l6ahmjnl4t4rbg2sk&redirect_uri=https%3A%2F%2Fd1nefn153k84ow.cloudfront.net%2F&response_type=token&scope=email+openid+phone
-      - npm run build
+      - npm run build # Builds the project
 artifacts:
   files:
     - '**/*'
-  base-directory: dist
+  base-directory: dist # Directory with output files (e.g., React app)
