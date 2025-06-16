@@ -7,6 +7,7 @@ import dice4 from '../../assets/dice-4.png'
 import dice5 from '../../assets/dice-5.png'
 import dice6 from '../../assets/dice-6.png'
 import { Feedback } from '../../components/Feedback'
+import { Notification } from '../../components/Notification'
 
 export function Game() {
   const [scores, setScores] = useState([0, 0])
@@ -16,6 +17,7 @@ export function Game() {
   const [playing, setPlaying] = useState(true)
   const [showFeedback, setShowFeedback] = useState(false)
   const [gameOver, setGameOver] = useState(false)
+  const [notification, setNotification] = useState('')
 
   const sendFinalScore = async () => {
     const token = localStorage.getItem('id_token')
@@ -37,9 +39,12 @@ export function Game() {
       })
 
       const result = await response.json()
-      console.log('✅ Game saved to DB:', result)
+      setNotification('✅ Game successfully saved!')
+      setTimeout(() => setNotification(''), 3000)
     } catch (err) {
       console.error('❌ Failed to save score:', err)
+      setNotification('❌ Failed to save score.')
+      setTimeout(() => setNotification(''), 3000)
     }
   }
 
@@ -107,6 +112,11 @@ export function Game() {
 
   return (
     <main>
+      <Notification
+        message={notification}
+        onClose={() => setNotification('')}
+      />
+
       {showFeedback ? (
         <Feedback setShowFeedback={setShowFeedback} />
       ) : (
