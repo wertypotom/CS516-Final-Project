@@ -77,7 +77,7 @@ export function Game() {
     updatedScores[activePlayer] += currentScore
     setScores(updatedScores)
 
-    if (updatedScores[activePlayer] >= 50) {
+    if (updatedScores[activePlayer] >= 20) {
       setPlaying(false)
       setDice(null)
       setGameOver(true)
@@ -114,7 +114,7 @@ export function Game() {
           <section
             className={`player player--0 ${
               activePlayer === 0 ? 'player--active' : ''
-            } ${!playing && scores[0] >= 50 ? 'player--winner' : ''}`}
+            } ${!playing && scores[0] >= 20 ? 'player--winner' : ''}`}
           >
             <h2 className='name'>Player 1</h2>
             <p className='score'>{scores[0]}</p>
@@ -129,7 +129,7 @@ export function Game() {
           <section
             className={`player player--1 ${
               activePlayer === 1 ? 'player--active' : ''
-            } ${!playing && scores[1] >= 50 ? 'player--winner' : ''}`}
+            } ${!playing && scores[1] >= 20 ? 'player--winner' : ''}`}
           >
             <h2 className='name'>Player 2</h2>
             <p className='score'>{scores[1]}</p>
