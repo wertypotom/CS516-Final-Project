@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { Notification } from './Notification'
 
 export function Feedback({ setShowFeedback }) {
+  const [notification, setNotification] = useState('')
   const [feedback, setFeedback] = useState({
     name: '',
     email: '',
@@ -28,9 +30,11 @@ export function Feedback({ setShowFeedback }) {
       })
 
       const result = await response.json()
-      console.log('✅ Game saved to DB:', result)
+      setNotification('✅ Feedback successfully submited!')
+      setTimeout(() => setNotification(''), 3000)
     } catch (err) {
-      console.error('❌ Failed to save score:', err)
+      setNotification('❌ Failed to send feedback.')
+      setTimeout(() => setNotification(''), 3000)
     }
   }
 
@@ -47,6 +51,10 @@ export function Feedback({ setShowFeedback }) {
 
   return (
     <div className='feedback-form-wrapper'>
+      <Notification
+        message={notification}
+        onClose={() => setNotification('')}
+      />
       <a
         href='#'
         className='feedback-back'
