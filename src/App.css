@@ -324,6 +324,18 @@ main {
   background-color: #f4f4f4;
 }
 
+.main {
+  position: relative;
+  width: 100rem;
+  height: 60rem;
+  background-color: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(200px);
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25);
+  border-radius: 9px;
+  overflow: hidden;
+  display: flex;
+}
+
 /* nav items */
 .nav-item {
   display: list-item;
