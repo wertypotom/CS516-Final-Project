@@ -25,7 +25,6 @@ export function NavBar() {
           </li>
         </ul>
       </nav>
-      <Outlet />
     </>
   )
 }

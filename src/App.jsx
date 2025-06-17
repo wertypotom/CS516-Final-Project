@@ -5,11 +5,12 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { Game } from './pages/game/Game'
 import { Login } from './pages/login/Login'
-import { useEffect, useState } from 'react'
-import { NavBar } from './components/NavBar'
 import { Scores } from './pages/scores/Scores'
+import { PublicRoute } from './routes/PublicRoute'
+import { PrivateRoute } from './routes/PrivateRoute'
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('id_token'))
@@ -23,7 +24,6 @@ function App() {
     }
 
     window.addEventListener('storage', checkToken)
-    // Also check after redirect
     checkToken()
 
     return () => window.removeEventListener('storage', checkToken)
@@ -32,19 +32,23 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route element={<NavBar />}>
+        {/* Public Routes */}
+        <Route element={<PublicRoute />}>
           <Route path='/' element={<Login />} />
           <Route path='/login' element={<Login />} />
-          <Route
-            path='/game'
-            element={token ? <Game /> : <Navigate to='/login' replace />}
-          />
-          <Route
-            path='*'
-            element={<Navigate to={token ? '/game' : '/login'} replace />}
-          />
+        </Route>
+
+        {/* Private Routes with NavBar */}
+        <Route element={<PrivateRoute />}>
+          <Route path='/game' element={<Game />} />
           <Route path='/scores' element={<Scores />} />
         </Route>
+
+        {/* Fallback */}
+        <Route
+          path='*'
+          element={<Navigate to={token ? '/game' : '/login'} replace />}
+        />
       </Routes>
     </Router>
   )
