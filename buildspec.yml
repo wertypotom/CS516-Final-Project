@@ -24,7 +24,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Uploading to S3...
-      - aws s3 sync ./dist s3://cs516-group7-web-hosting --delete
+      - aws s3 sync ./dist s3://project-s3-cs516 --delete
       - echo Invalidating CloudFront...
       - aws cloudfront create-invalidation --distribution-id E3GX73LHVMNF2Y --paths "/*"
       - echo Deployment completed successfully!
