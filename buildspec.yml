@@ -26,7 +26,7 @@ phases:
       - echo Uploading to S3...
       - aws s3 sync ./dist s3://project-s3-cs516 --delete
       - echo Invalidating CloudFront...
-      - aws cloudfront create-invalidation --distribution-id E3GX73LHVMNF2Y --paths "/*"
+      - aws cloudfront create-invalidation --distribution-id E39E8T1GR1HFR2 --paths "/*"
       - echo Deployment completed successfully!
 
 artifacts:
