@@ -2,12 +2,38 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      nodejs: 18
     commands:
-      - npm install
+      - echo Installing dependencies for Vite React project...
+      - npm ci
+  pre_build:
+    commands:
+      - echo Pre-build phase started on `date`
+      - echo Checking Node.js and npm versions
+      - node --version
+      - npm --version
   build:
     commands:
-      - npm run build # Builds the project
+      - echo Build started on `date`
+      - echo Building Vite React project...
+      - npm run build
+      - echo Build output directory contents
+      - ls -la ./dist
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Uploading to S3...
+      - aws s3 sync ./dist s3://cs516-group7-web-hosting --delete
+      - echo Invalidating CloudFront...
+      - aws cloudfront create-invalidation --distribution-id E3GX73LHVMNF2Y --paths "/*"
+      - echo Deployment completed successfully!
+
 artifacts:
   files:
     - '**/*'
-  base-directory: dist # Directory with output files (e.g., React app)
+  base-directory: 'dist'
+
+cache:
+  paths:
+    - 'node_modules/**/*'
