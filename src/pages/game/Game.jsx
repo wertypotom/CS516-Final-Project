@@ -174,7 +174,7 @@ export function Game() {
           )}
 
           <button className='btn btn--new' onClick={initGame}>
-            🔄 New game
+            🔄 Start game
           </button>
           <button className='btn btn--roll' onClick={rollDice}>
             🎲 Roll dice
