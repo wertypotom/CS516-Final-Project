@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import dice1 from '../../assets/dice-1.png'
 import dice2 from '../../assets/dice-2.png'
@@ -8,6 +8,7 @@ import dice5 from '../../assets/dice-5.png'
 import dice6 from '../../assets/dice-6.png'
 import { Feedback } from '../../components/Feedback'
 import { Notification } from '../../components/Notification'
+import { parseJwt } from '../../utils/jwt-decode'
 
 export function Game() {
   const [scores, setScores] = useState([0, 0])
@@ -18,6 +19,19 @@ export function Game() {
   const [showFeedback, setShowFeedback] = useState(false)
   const [gameOver, setGameOver] = useState(false)
   const [notification, setNotification] = useState('')
+  const [username, setUsername] = useState('Player 1')
+  const [token] = useState(localStorage.getItem('id_token'))
+
+  useEffect(() => {
+    if (token) {
+      const decoded = parseJwt(token)
+      if (decoded?.email) {
+        const email = decoded['email']
+        const namePart = email.split('@')[0]
+        setUsername(namePart)
+      }
+    }
+  }, [])
 
   const sendFinalScore = async () => {
     const token = localStorage.getItem('id_token')
@@ -38,7 +52,7 @@ export function Game() {
         body: JSON.stringify(payload),
       })
 
-      const result = await response.json()
+      await response.json()
       setNotification('✅ Game successfully saved!')
       setTimeout(() => setNotification(''), 3000)
     } catch (err) {
@@ -126,7 +140,7 @@ export function Game() {
               activePlayer === 0 ? 'player--active' : ''
             } ${!playing && scores[0] >= 20 ? 'player--winner' : ''}`}
           >
-            <h2 className='name'>Player 1</h2>
+            <h2 className='name'>{username ? username : 'Player 1'}</h2>
             <p className='score'>{scores[0]}</p>
             <div className='current'>
               <p className='current-label'>Current</p>

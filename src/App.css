@@ -37,7 +37,7 @@ main {
 
 /* ===== PLAYER PANELS ===== */
 .player {
-  flex: 50%;
+  width: 50rem;
   padding: 9rem;
   display: flex;
   flex-direction: column;
@@ -53,6 +53,12 @@ main {
   word-spacing: 2px;
   font-weight: 300;
   margin-bottom: 1rem;
+
+  max-width: 80%; /* ✅ Limit width */
+  white-space: nowrap; /* ✅ Keep on one line */
+  overflow: hidden; /* ✅ Hide overflow */
+  text-overflow: ellipsis; /* ✅ Show ... */
+  text-align: center; /* ✅ Optional: center the text */
 }
 
 .score {
@@ -284,4 +290,75 @@ main {
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+/* scores */
+.winner-cell {
+  background-color: lightgreen !important;
+}
+
+.draw-cell {
+  background-color: lightgray !important;
+}
+
+.scores-wrapper {
+  padding: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.score-table {
+  margin: 1rem auto;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.score-table th,
+.score-table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  font-size: 2rem;
+}
+
+.score-table th {
+  background-color: #f4f4f4;
+}
+
+/* nav items */
+.nav-item {
+  display: list-item;
+}
+
+.navbar {
+  background-color: transparent;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  font-size: 2rem;
+  text-decoration: none;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: #fff;
+  color: #c7365f;
+}
+
+.active {
+  background-color: #ffffffbe;
+  color: #c7365f !important;
 }
